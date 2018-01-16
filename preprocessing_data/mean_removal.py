@@ -8,6 +8,9 @@ input_data = np.array(
     [7.3, -9.9, -4.5]]
 )
 
+# Removing the mean is a common preprocessing technique used in machine learning.
+# It's usually useful to remove the mean from our feature vector, so that each feature is centered on zero.
+
 # Print mean and standard deviation 
 print("\nBEFORE:")
 print("Mean =", input_data.mean(axis=0))

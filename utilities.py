@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-def visualize_classifier(classifier, X, y):
+def visualize_classifier(classifier, X, y, title=''):
     # Define the minimum and maximum values for X and Y
     # that will be used in the mesh grid
     min_x, max_x = X[:, 0].min() - 1.0, X[:, 0].max() + 1.0
@@ -21,6 +21,9 @@ def visualize_classifier(classifier, X, y):
 
     # Create a plot
     plt.figure()
+
+    # Specify the title
+    plt.title(title)
 
     # Choose a color scheme for the plot 
     plt.pcolormesh(x_vals, y_vals, output, cmap=plt.cm.gray)
