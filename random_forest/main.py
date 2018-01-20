@@ -13,7 +13,6 @@ from utilities import visualize_classifier
 
 # Argument parser 
 
-
 def build_arg_parser():
      parser = argparse.ArgumentParser(description='Classify data using \ Ensemble Learning techniques')
      parser.add_argument('--classifier-type', dest='classifier_type', required=True, choices=['rf', 'erf'], help="Type of classifier \to use; can be either 'rf' or 'erf'") 
@@ -74,3 +73,18 @@ if __name__=='__main__':
     print(classification_report(y_test, y_test_pred, target_names=class_names)) 
     print("#"*40 + "\n")
 
+# Compute confidence 
+test_datapoints = np.array([[5, 5], [3, 6], [6, 4], [7, 2], [4, 4], [5, 2]])
+
+print("\nConfidence measure:")
+for datapoint in test_datapoints: 
+    probabilities = classifier.predict_proba([datapoint])[0] 
+    predicted_class = 'Class-' + str(np.argmax(probabilities)) 
+    print('\nDatapoint:', datapoint) 
+    print('\nProbabilities:', probabilities)
+    print('\nPredicted class:', predicted_class)
+
+
+# Visualize the datapoints
+visualize_classifier(classifier, test_datapoints, [0]*len(test_datapoints), 'Test datapoints') 
+plt.show()
