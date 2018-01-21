@@ -39,10 +39,8 @@ for metric in metrics:
     for params, avg_score, _ in classifier.grid_scores_: 
         print(params, '-->', round(avg_score, 3))
 
-for params, avg_score, _ in classifier.grid_scores_:
-    print(params, '-->', round(avg_score, 3))
-    print("\nBest parameters:", classifier.best_params_)    
 
+print("\nBest parameters:", classifier.best_params_)    
 y_pred = classifier.predict(X_test)
 print("\nPerformance report:\n")    
 print(classification_report(y_test, y_pred))
