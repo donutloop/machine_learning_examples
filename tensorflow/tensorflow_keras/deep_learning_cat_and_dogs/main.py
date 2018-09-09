@@ -4,9 +4,17 @@ import os
 import cv2
 import random
 import pickle
+import time
 import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout, Activation, Flatten, Conv2D, MaxPooling2D
+from tensorflow.keras.callbacks import TensorBoard
+
+gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=0.333)
+sess = tf.Session(config=tf.ConfigProto(gpu_options=gpu_options))
+
+NAME = "Cats-vs-dog-cnn-64x1-{}".format(int(time.time()))
+tensorboard = TensorBoard(log_dir='logs/{}'.format(NAME))
 
 def create_training_data(categories, datadir, img_size):
     
@@ -76,11 +84,14 @@ model.add(MaxPooling2D(pool_size=(2,2)))
 
 model.add(Flatten())
 model.add(Dense(64))
+model.add(Activation("relu"))
 
 model.add(Dense(1))
 model.add(Activation("sigmoid"))
 
 model.compile(loss="binary_crossentropy", optimizer="adam", metrics=["accuracy"])
 
-model.fit(X, y, batch_size=32, validation_split=0.1)
+model.fit(X, y, batch_size=32, validation_split=0.1, callbacks=[tensorboard], epochs=10)
+
+# run tensorboard --log logs to analyse logs
 
